@@ -1,8 +1,10 @@
 // esta parte del codigo se encargara de utilizar los componentes desarrollados para generar las reglas del juego 
 import React, {useState} from "react";
+import "./Styles.css";
 import Board from "./Board"; 
+import ResetButton from "./ResetButton";
 
-function calculateWinner(board) { //esta sera la funcion para encontrar al ganador 
+const calculateWinner = (board) => { //esta sera la funcion para encontrar al ganador 
     const winingPositions = [ //estas son las posiciones que generan un ganador
         [0, 1, 2],
         [3, 4, 5],
@@ -18,14 +20,19 @@ function calculateWinner(board) { //esta sera la funcion para encontrar al ganad
         const [a, b, c] = winingPositions[i];
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             return true;
-        }
+        } 
     }
     return null;
 }
+
 const Game = () => {
     const [board, setBoard] = useState(new Array(9).fill(null)); //estado inicial: arreglo con 9 elementos los cuales estaran llenos con un valor "null"
-    const [xIsNext, setXIsNext] = useState(true); //esta variable nos permiti
-    const winner = calculateWinner(board);
+    const [xIsNext, setXIsNext] = useState(true); //flag para alternar el turno y saber quien tira
+    const winner = calculateWinner(board); //funcion para decidir al ganador 
+    
+    const reset = () => { //funcion para resetear el juego 
+        setBoard(new Array(9).fill(null))
+    }
 
     const handleSquareChange = (index) => {
         const copiedBoard = [...board]; //esta linea gererara una copia de board
@@ -36,7 +43,10 @@ const Game = () => {
         setBoard(copiedBoard);
     }
     return(
-        <Board squares={board} handleClick={handleSquareChange}/>
+        <div className="game">
+            <Board squares={board} handleClick={handleSquareChange}/>
+            <ResetButton handleReset={reset}/>
+        </div>
     )
 };
 

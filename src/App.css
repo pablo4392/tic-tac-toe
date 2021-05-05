@@ -1,7 +1,18 @@
 .App {
-  text-align: center;
+  height: 100vh;
+  background-color: #132c33;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 720px;
+  justify-content: space-between;
+}
+
+.principal-title {
+  margin: 10px 0;
+  font-size: 90px;
+  color: #d8e3e7;
+}
+
+.title-icon {
+  margin-right: 5px;
 }
